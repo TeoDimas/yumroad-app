@@ -1,19 +1,18 @@
 from flask import url_for
 import pytest
 
-from yumroad.models import db, Product, User
+from yumroad.models import db, Product
 
-def create_product(name="Sherlock Homes", description="a house hunting real estate agent", user=None, store=None):
-    user = user or User.create("owner@example.com", "test")
-    product = Product(name="Sherlock Homes", description="a house hunting detective")
-    db.session.add(product)
+def create_book(name="Sherlock Homes", description="a house hunting real estate agent"):
+    book = Product(name="Sherlock Homes", description="a house hunting detective")
+    db.session.add(book)
     db.session.commit()
-    return product
+    return book
 
 # Unit Tests
 def test_product_creation(client, init_database):
     assert Product.query.count() == 0
-    create_product()
+    create_book()
     assert Product.query.count() == 1
 
 def test_name_validation(client, init_database):
@@ -24,30 +23,33 @@ def test_name_validation(client, init_database):
 
 # Functional Tests
 def test_index_page(client, init_database):
-    product = create_product()
+    book = create_book()
     response = client.get(url_for('product.index'))
     assert response.status_code == 200
     assert b'Yumroad' in response.data
-    assert product.name in str(response.data)
+    assert book.name in str(response.data)
 
-    expected_link = url_for('product.details', product_id=product.id)
+    expected_link = url_for('product.details', product_id=book.id)
     assert expected_link in str(response.data)
 
 def test_details_page(client, init_database):
-    product = create_product()
-    response = client.get(url_for('product.details', product_id=product.id))
+    book = create_book()
+    response = client.get(url_for('product.details', product_id=book.id))
     assert response.status_code == 200
     assert b'Yumroad' in response.data
     assert b'Purchase coming soon' in response.data
-    assert product.name in str(response.data)
+    assert book.name in str(response.data)
 
-def test_unauthed_new_page(client, init_database):
+def test_non_existant_book(client, init_database):
+    book = create_book()
+    response = client.get(url_for('product.details', product_id=book.id+1))
+    assert response.status_code == 404
+
+def test_new_page_unauthorized(client, init_database):
     response = client.get(url_for('product.create'))
     assert response.status_code == 302
 
 def test_new_page(client, init_database, authenticated_request):
-    import flask
-    print(flask.session)
     response = client.get(url_for('product.create'))
 
     assert response.status_code == 200

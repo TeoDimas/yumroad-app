@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+
 from wtforms import StringField, PasswordField, validators
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,11 +12,12 @@ class ProductForm(FlaskForm):
     name = StringField('Name', [validators.Length(min=4, max=60)])
     description = StringField('Description')
 
+
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[validators.Email(), validators.DataRequired()])
+    email = StringField('Email', validators=[validators.email(), validators.DataRequired()])
     password = PasswordField('Password', validators=[validators.DataRequired()])
 
-    def validate(self, extra_validators=None):
+    def validate(self, extra_validators = None):
         check_validate = super(LoginForm, self).validate()
         if not check_validate:
             return False
@@ -31,21 +33,25 @@ class LoginForm(FlaskForm):
         return True
 
 class SignupForm(FlaskForm):
-    email = StringField('Email', validators=[validators.Email(), validators.DataRequired()])
-    password = PasswordField('Password', validators=[
-        validators.DataRequired(),
-        validators.Length(min=4),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
+    store_name = StringField('Store Name', validators=[validators.DataRequired(), validators.length(min=4)])
+    email = StringField('Email', validators=[validators.email(), validators.DataRequired()])
+    password = PasswordField('Password', validators=[validators.DataRequired(), validators.length(min=4),
+                                                     validators.EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm Password', validators=[validators.DataRequired()])
 
-    def validate(self, extra_validators=None):
+    def validate(self, extra_validators = None):
         check_validate = super(SignupForm, self).validate()
         if not check_validate:
             return False
 
+        # Does the user exist already? Must return false,
+        # otherwise we'll allow anyone to sign in
         user = User.query.filter_by(email=self.email.data).first()
         if user:
             self.email.errors.append('That email already has an account')
             return False
         return True
+
+        # TODO: Maybe you'll want a validation to prevent the same store name from being used twice
+
+

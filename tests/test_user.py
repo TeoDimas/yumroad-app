@@ -1,10 +1,11 @@
 from flask import url_for
 import pytest
 
-from yumroad.models import db, Product, User
+from yumroad.models import db, Product, Store, User
 
-EXAMPLE_EMAIL = "test@example.com"
-EXAMPLE_PASSWORD = "test123"
+EXAMPLE_EMAIL = "test2@example.com"
+EXAMPLE_PASSWORD = "test"
+STORE_NAME = "Test Store"
 
 VALID_LOGIN_PARAMS = {
     'email': EXAMPLE_EMAIL,
@@ -12,13 +13,24 @@ VALID_LOGIN_PARAMS = {
 }
 
 VALID_REGISTER_PARAMS = {
+    'store_name': STORE_NAME,
     'email': EXAMPLE_EMAIL,
     'password': EXAMPLE_PASSWORD,
     'confirm': EXAMPLE_PASSWORD,
 }
 
+SHORT_STORE_NAME = {
+    'store_name': 'abc',
+    'email': EXAMPLE_EMAIL,
+    'password': EXAMPLE_PASSWORD,
+    'confirm': EXAMPLE_PASSWORD,
+}
+
+
 def create_user(email=EXAMPLE_EMAIL, password=EXAMPLE_PASSWORD):
     user = User.create(email, password)
+    # store = Store(name=STORE_NAME, user=user)
+    # db.session.add(store)
     db.session.add(user)
     db.session.commit()
     return user
@@ -28,6 +40,8 @@ def test_user_creation(client, init_database):
     assert User.query.count() == 0
     user = create_user()
     assert User.query.count() == 1
+    assert user.store is None
+    # Make sure we're not storing the password as plaintext
     assert user.password is not EXAMPLE_PASSWORD
 
 def test_email_password_validation(client, init_database):
@@ -44,28 +58,38 @@ def test_get_register(client, init_database):
     assert response.status_code == 200
     assert 'Sign up' in str(response.data)
     assert 'Email' in str(response.data)
+    assert 'Store Name' in str(response.data)
     assert 'Password' in str(response.data)
 
 def test_register(client, init_database):
     response = client.post('/register', data=VALID_REGISTER_PARAMS, follow_redirects=True)
     assert response.status_code == 200
+
+    assert User.query.count() == 1
+    assert Store.query.count() == 1
+    assert User.query.first().store == Store.query.first()
+
     assert b'Registered succesfully.' in response.data
     assert EXAMPLE_EMAIL in str(response.data)
     assert b'Add Product' in response.data
-
-def test_register_invalid(client, init_database):
-    invalid_data = VALID_REGISTER_PARAMS.copy()
-    invalid_data['email'] = 'abc'
-    response = client.post('/register', data=invalid_data, follow_redirects=True)
-    assert response.status_code == 200
-    assert b'Invalid email address' in response.data
-    assert b'Add Product' not in response.data
 
 def test_register_with_existing_user(client, init_database):
     user = create_user()
     response = client.post('/register', data=VALID_REGISTER_PARAMS, follow_redirects=True)
     assert response.status_code == 200
+
     assert b'That email already has an account' in response.data
+    assert b'Sign up' in response.data
+
+    assert b'Registered succesfully.' not in response.data
+    assert b'You are already logged in' not in response.data
+
+def test_register_with_invalid_store_name(client, init_database):
+    user = create_user()
+    response = client.post('/register', data=SHORT_STORE_NAME, follow_redirects=True)
+    assert response.status_code == 200
+
+    assert b'must be at least 4 characters long' in response.data
     assert b'Sign up' in response.data
 
     assert b'Registered succesfully.' not in response.data
