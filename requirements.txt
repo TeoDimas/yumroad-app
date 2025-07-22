@@ -3,9 +3,12 @@ requests
 gunicorn
 
 flask-sqlalchemy
+Flask-WTF
+wtforms[email]
 
 
 pytest
 pytest-flask
 pytest-cov
 
+flake8
