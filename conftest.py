@@ -3,7 +3,7 @@ from flask import url_for
 from flask_login import login_user
 
 from yumroad import create_app
-from yumroad.models import db, User
+from yumroad.models import db, User, Store
 from yumroad.extensions import login_manager
 
 @pytest.fixture
@@ -19,12 +19,13 @@ def init_database():
 
 @pytest.fixture
 def authenticated_request(client):
-    new_user = User.create("test@example.com", "examplepass")
-    db.session.add(new_user)
+    new_user = User.create("test@example.com", "pass")
+    store = Store(name="Test Store", user=new_user)
+    db.session.add(store)
     db.session.commit()
 
     response = client.post(url_for('user.login'), data={
         'email': "test@example.com",
-        'password': "examplepass"
+        'password': "pass"
     }, follow_redirects=True)
     yield client
