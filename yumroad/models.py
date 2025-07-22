@@ -4,6 +4,21 @@ from werkzeug.security import generate_password_hash
 
 from yumroad.extensions import db
 
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(), nullable=False)
+
+    store = db.relationship("Store", uselist=False, back_populates='user')
+    products = db.relationship("Product", back_populates='creator')
+
+    @classmethod
+    def create(cls, email, password):
+        if not email or not password:
+            raise ValueError('email and password are required')
+        hashed_password = generate_password_hash(password)
+        return User(email=email.lower().strip(), password=hashed_password)
+
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
