@@ -17,6 +17,9 @@ jsmin
 
 stripe
 
+sentry-sdk[flask]
+
+
 # Dev
 pytest
 pytest-flask
