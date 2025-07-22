@@ -1,0 +1,11 @@
+flask
+requests
+gunicorn
+
+flask-sqlalchemy
+
+
+pytest
+pytest-flask
+pytest-cov
+
