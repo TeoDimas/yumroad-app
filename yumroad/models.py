@@ -35,12 +35,17 @@ class Product(db.Model):
 
     store = db.relationship("Store", uselist=False, back_populates="products")
     creator = db.relationship("User", uselist=False, back_populates="products")
+    orders = db.relationship("Order", back_populates='product')
 
     @validates('name')
     def validate_name(self, key, name):
         if len(name.strip()) <= 3:
             raise ValueError('needs to have a name')
         return name
+
+    @property
+    def primary_image_url(self):
+        return self.picture_url or "https://placehold.co/600x400?text={}".format(self.name)
 
 class Store(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,3 +60,12 @@ class Store(db.Model):
         if len(name.strip()) <= 3:
             raise ValueError('needs to have a name')
         return name
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    purchaser_email = db.Column(db.String(255), nullable=False)
+    purchased_at = db.Column(db.DateTime, nullable=False)
+    payment_reference_id = db.Column(db.String(255))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+
+    product = db.relationship("Product", back_populates="orders")
