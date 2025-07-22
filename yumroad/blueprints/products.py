@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, url_for, abort
-from flask_login import current_user, login_required
+from flask_login import login_required, current_user
 
 from yumroad.models import Product, db
 from yumroad.forms import ProductForm
@@ -16,8 +16,8 @@ def index():
 def create():
     form = ProductForm()
     if form.validate_on_submit():
-        product = Product(name=form.name.data,
-                        description=form.description.data,
+        product = Product(name=request.form['name'],
+                        description=request.form['description'],
                         creator=current_user,
                         store=current_user.store)
         db.session.add(product)
@@ -28,5 +28,19 @@ def create():
 
 @product_bp.route('/product/<product_id>')
 def details(product_id):
-    product = Product.query.get_or_404(product_id)
+    product = Product.query.get(product_id)
+    if not product:
+        abort(404)
+    # or simply:
+    # product = Product.query.get_or_404(product_id)
     return render_template('products/details.html', product=product)
+
+
+# def plain_old_form_handling():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         description = request.form['description']
+
+#         product = Product(name=name, description=description)
+#         db.session.add(product)
+#         return redirect(url_for('.details', product_id=product.id))
