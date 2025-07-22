@@ -10,9 +10,17 @@ flask-migrate
 flask-login
 flask-mail
 
-vcrpy
+flask-assets
+cssmin
+jsmin
+
+
+stripe
+
+# Dev
 pytest
 pytest-flask
 pytest-cov
+vcrpy
 
 flake8
