@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 
 from wtforms import StringField, PasswordField, validators
+from wtforms.fields import DecimalField
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from yumroad.models import User
@@ -11,13 +12,14 @@ class EmptyForm(FlaskForm):
 class ProductForm(FlaskForm):
     name = StringField('Name', [validators.Length(min=4, max=60)])
     description = StringField('Description')
-
+    picture_url = StringField('Picture URL', description='Optional', validators=[validators.Optional(), validators.URL()])
+    price = DecimalField('Price', description='in USD, Optional')
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[validators.email(), validators.DataRequired()])
     password = PasswordField('Password', validators=[validators.DataRequired()])
 
-    def validate(self, extra_validators = None):
+    def validate(self, extra_validators=None):
         check_validate = super(LoginForm, self).validate()
         if not check_validate:
             return False
@@ -39,7 +41,7 @@ class SignupForm(FlaskForm):
                                                      validators.EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Confirm Password', validators=[validators.DataRequired()])
 
-    def validate(self, extra_validators = None):
+    def validate(self, extra_validators=None):
         check_validate = super(SignupForm, self).validate()
         if not check_validate:
             return False
