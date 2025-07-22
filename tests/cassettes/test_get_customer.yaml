@@ -1,0 +1,74 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Stripe-Version:
+      - 2025-06-30.basil
+      User-Agent:
+      - Stripe/v1 PythonBindings/12.3.0
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version": "12.3.0", "lang": "python", "publisher": "stripe", "httplib":
+        "requests", "lang_version": "3.8.10", "platform": "Windows-10-10.0.26100-SP0",
+        "uname": "Windows master 10 10.0.26100 AMD64 Intel64 Family 6 Model 186 Stepping
+        3, GenuineIntel"}'
+    method: GET
+    uri: https://api.stripe.com/v1/customers/cus_G3RryQUasJG0Jw
+  response:
+    body:
+      string: "{\n  \"error\": {\n    \"code\": \"resource_missing\",\n    \"doc_url\":
+        \"https://stripe.com/docs/error-codes/resource-missing\",\n    \"message\":
+        \"No such customer: 'cus_G3RryQUasJG0Jw'\",\n    \"param\": \"id\",\n    \"request_log_url\":
+        \"https://dashboard.stripe.com/test/logs/req_h10nW2HdM9AdAB?t=1753144431\",\n
+        \   \"type\": \"invalid_request_error\"\n  }\n}\n"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, PATCH, POST, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
+        X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '333'
+      Content-Security-Policy:
+      - base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none';
+        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src
+        'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=JtukGbSXYZZGD0CiaBi88gPdhq7kq6Ru-k44GdxVZuzVRvMU3JmVNJtnT5JQrzhkHkc56fVIz98P08MA
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 22 Jul 2025 00:33:51 GMT
+      Request-Id:
+      - req_h10nW2HdM9AdAB
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+      Stripe-Version:
+      - 2025-06-30.basil
+      Vary:
+      - Origin
+      X-Stripe-Priority-Routing-Enabled:
+      - 'true'
+      X-Stripe-Routing-Context-Priority-Tier:
+      - api-testmode
+      X-Wc:
+      - ABGHIJ
+    status:
+      code: 404
+      message: Not Found
+version: 1
