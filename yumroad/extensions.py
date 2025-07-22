@@ -3,6 +3,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
+from yumroad.payments import Checkout
 
 from sqlalchemy import MetaData
 
@@ -20,3 +21,5 @@ migrate = Migrate()
 csrf = CSRFProtect()
 login_manager = LoginManager()
 mail = Mail()
+
+checkout = Checkout()

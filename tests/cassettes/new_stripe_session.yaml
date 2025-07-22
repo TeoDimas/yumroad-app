@@ -1,0 +1,116 @@
+interactions:
+- request:
+    body: payment_method_types[0]=card&client_reference_id=1&line_items[0][price_data][currency]=usd&line_items[0][price_data][unit_amount]=500&line_items[0][price_data][product_data][name]=Sherlock+Homes&line_items[0][price_data][product_data][description]=a+house+hunting+detective&line_items[0][price_data][product_data][images][0]=https%3A%2F%2Fplacehold.co%2F600x400%3Ftext%3DSherlock+Homes&line_items[0][quantity]=1&mode=payment&success_url=http%3A%2F%2Flocalhost%2Fproduct%2F1%2Fpost_checkout%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D%26status%3Dsuccess&cancel_url=http%3A%2F%2Flocalhost%2Fproduct%2F1%2Fpost_checkout%3Fsession_id%3D%7BCHECKOUT_SESSION_ID%7D%26status%3Dcancel
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '672'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Idempotency-Key:
+      - 00eb53ef-ffc7-4565-860d-aeea81c44e7b
+      Stripe-Version:
+      - 2025-06-30.basil
+      User-Agent:
+      - Stripe/v1 PythonBindings/12.3.0
+      X-Stripe-Client-Telemetry:
+      - '{"last_request_metrics": {"request_id": "req_h10nW2HdM9AdAB", "request_duration_ms":
+        5}}'
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version": "12.3.0", "lang": "python", "publisher": "stripe", "httplib":
+        "requests", "lang_version": "3.8.10", "platform": "Windows-10-10.0.26100-SP0",
+        "uname": "Windows master 10 10.0.26100 AMD64 Intel64 Family 6 Model 186 Stepping
+        3, GenuineIntel"}'
+    method: POST
+    uri: https://api.stripe.com/v1/checkout/sessions
+  response:
+    body:
+      string: "{\n  \"id\": \"cs_test_a1CJvNlWDpaZ08PPz3yyTrZBDCBTdlS0PlM0abv9g9st5KWkrxtszQlf27\",\n
+        \ \"object\": \"checkout.session\",\n  \"adaptive_pricing\": {\n    \"enabled\":
+        true\n  },\n  \"after_expiration\": null,\n  \"allow_promotion_codes\": null,\n
+        \ \"amount_subtotal\": 500,\n  \"amount_total\": 500,\n  \"automatic_tax\":
+        {\n    \"enabled\": false,\n    \"liability\": null,\n    \"provider\": null,\n
+        \   \"status\": null\n  },\n  \"billing_address_collection\": null,\n  \"cancel_url\":
+        \"http://localhost/product/1/post_checkout?session_id={CHECKOUT_SESSION_ID}&status=cancel\",\n
+        \ \"client_reference_id\": \"1\",\n  \"client_secret\": null,\n  \"collected_information\":
+        null,\n  \"consent\": null,\n  \"consent_collection\": null,\n  \"created\":
+        1753144434,\n  \"currency\": \"usd\",\n  \"currency_conversion\": null,\n
+        \ \"custom_fields\": [],\n  \"custom_text\": {\n    \"after_submit\": null,\n
+        \   \"shipping_address\": null,\n    \"submit\": null,\n    \"terms_of_service_acceptance\":
+        null\n  },\n  \"customer\": null,\n  \"customer_creation\": \"if_required\",\n
+        \ \"customer_details\": null,\n  \"customer_email\": null,\n  \"discounts\":
+        [],\n  \"expires_at\": 1753230834,\n  \"invoice\": null,\n  \"invoice_creation\":
+        {\n    \"enabled\": false,\n    \"invoice_data\": {\n      \"account_tax_ids\":
+        null,\n      \"custom_fields\": null,\n      \"description\": null,\n      \"footer\":
+        null,\n      \"issuer\": null,\n      \"metadata\": {},\n      \"rendering_options\":
+        null\n    }\n  },\n  \"livemode\": false,\n  \"locale\": null,\n  \"metadata\":
+        {},\n  \"mode\": \"payment\",\n  \"origin_context\": null,\n  \"payment_intent\":
+        null,\n  \"payment_link\": null,\n  \"payment_method_collection\": \"if_required\",\n
+        \ \"payment_method_configuration_details\": null,\n  \"payment_method_options\":
+        {\n    \"card\": {\n      \"request_three_d_secure\": \"automatic\"\n    }\n
+        \ },\n  \"payment_method_types\": [\n    \"card\"\n  ],\n  \"payment_status\":
+        \"unpaid\",\n  \"permissions\": null,\n  \"phone_number_collection\": {\n
+        \   \"enabled\": false\n  },\n  \"recovered_from\": null,\n  \"saved_payment_method_options\":
+        null,\n  \"setup_intent\": null,\n  \"shipping_address_collection\": null,\n
+        \ \"shipping_cost\": null,\n  \"shipping_options\": [],\n  \"status\": \"open\",\n
+        \ \"submit_type\": null,\n  \"subscription\": null,\n  \"success_url\": \"http://localhost/product/1/post_checkout?session_id={CHECKOUT_SESSION_ID}&status=success\",\n
+        \ \"total_details\": {\n    \"amount_discount\": 0,\n    \"amount_shipping\":
+        0,\n    \"amount_tax\": 0\n  },\n  \"ui_mode\": \"hosted\",\n  \"url\": \"https://checkout.stripe.com/c/pay/cs_test_a1CJvNlWDpaZ08PPz3yyTrZBDCBTdlS0PlM0abv9g9st5KWkrxtszQlf27#fidkdWxOYHwnPyd1blpxYHZxWjA0V2tUNWtXd0lqcmdHfXE9QGZDb0BANm5WQHxiN1xBXXVTMzU0YEd1Z25BNkBCTmNSbX1oXUtHZGQwMFFHYDQwaVU3VkE9cGJXNDxGN00wc1dMSF9ySF91NTV0X0ZtdnZJXScpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl\",\n
+        \ \"wallet_options\": null\n}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, PATCH, POST, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
+        X-Stripe-Privileged-Session-Required
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2723'
+      Content-Security-Policy:
+      - base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none';
+        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src
+        'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=6-FmZVDQmCvotY-gld3FPZ6shpB0ZSOhf0ou_QusGgFEkwIM8pVOWUDwtdb3u0A3X73Y3LE8lhmffwRO
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 22 Jul 2025 00:33:54 GMT
+      Idempotency-Key:
+      - 00eb53ef-ffc7-4565-860d-aeea81c44e7b
+      Original-Request:
+      - req_OtMAYu79if9fKl
+      Request-Id:
+      - req_OtMAYu79if9fKl
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains; preload
+      Stripe-Should-Retry:
+      - 'false'
+      Stripe-Version:
+      - 2025-06-30.basil
+      Vary:
+      - Origin
+      X-Stripe-Priority-Routing-Enabled:
+      - 'true'
+      X-Stripe-Routing-Context-Priority-Tier:
+      - api-testmode
+      X-Wc:
+      - ABGHIJ
+    status:
+      code: 200
+      message: OK
+version: 1
