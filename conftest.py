@@ -4,11 +4,11 @@ from flask_login import login_user
 
 from yumroad import create_app
 from yumroad.models import db, User, Store
-from yumroad.extensions import login_manager
+from yumroad.extensions import login_manager, mail
 
 @pytest.fixture
 def app():
-    app =  create_app('test')
+    app = create_app('test')
     yield app
 
 @pytest.fixture
@@ -17,6 +17,7 @@ def init_database():
     yield db
     db.drop_all()
 
+# TODO: actually just yield user, rename to logged_in_user
 @pytest.fixture
 def authenticated_request(client):
     new_user = User.create("test@example.com", "pass")
@@ -28,4 +29,16 @@ def authenticated_request(client):
         'email': "test@example.com",
         'password': "pass"
     }, follow_redirects=True)
-    yield client
+    yield new_user
+
+
+@pytest.fixture
+def mail_outbox():
+    with mail.record_messages() as outbox:
+        yield outbox
+
+@pytest.fixture
+def app_context(app):
+    with app.app_context() as ctx:
+        yield ctx
+

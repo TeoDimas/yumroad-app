@@ -4,7 +4,7 @@ from yumroad.blueprints.products import product_bp
 from yumroad.blueprints.stores import store_bp
 from yumroad.blueprints.users import user_bp
 from yumroad.config import configurations
-from yumroad.extensions import (csrf, db, migrate, login_manager)
+from yumroad.extensions import (csrf, db, migrate, mail, login_manager)
 # We need this line for alembic to discover the models.
 import yumroad.models
 
@@ -17,6 +17,7 @@ def create_app(environment_name='dev'):
     csrf.init_app(app)
     # need render_as_batch to correctly generate migrations for sqlite
     migrate.init_app(app, db, render_as_batch=True)
+    mail.init_app(app)
     login_manager.init_app(app)
 
     app.register_blueprint(product_bp)

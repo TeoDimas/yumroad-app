@@ -5,8 +5,10 @@ gunicorn
 flask-sqlalchemy
 sqlalchemy
 Flask-WTF
+wtforms[email]
 flask-migrate
 flask-login
+flask-mail
 
 pytest
 pytest-flask
