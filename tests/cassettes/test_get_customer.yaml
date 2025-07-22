@@ -8,67 +8,63 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Stripe-Version:
-      - 2025-06-30.basil
       User-Agent:
-      - Stripe/v1 PythonBindings/12.3.0
+      - Stripe/v1 PythonBindings/2.48.0
       X-Stripe-Client-User-Agent:
-      - '{"bindings_version": "12.3.0", "lang": "python", "publisher": "stripe", "httplib":
-        "requests", "lang_version": "3.8.10", "platform": "Windows-10-10.0.26100-SP0",
-        "uname": "Windows master 10 10.0.26100 AMD64 Intel64 Family 6 Model 186 Stepping
-        3, GenuineIntel"}'
+      - '{"bindings_version": "2.48.0", "lang": "python", "publisher": "stripe", "httplib":
+        "requests", "lang_version": "3.7.7", "platform": "Darwin-19.4.0-x86_64-i386-64bit",
+        "uname": "Darwin Sumukhs-MBP-2 19.4.0 Darwin Kernel Version 19.4.0: Wed Mar  4
+        22:28:40 PST 2025; root:xnu-6153.101.6~15/RELEASE_X86_64 x86_64 i386"}'
     method: GET
     uri: https://api.stripe.com/v1/customers/cus_G3RryQUasJG0Jw
   response:
     body:
-      string: "{\n  \"error\": {\n    \"code\": \"resource_missing\",\n    \"doc_url\":
-        \"https://stripe.com/docs/error-codes/resource-missing\",\n    \"message\":
-        \"No such customer: 'cus_G3RryQUasJG0Jw'\",\n    \"param\": \"id\",\n    \"request_log_url\":
-        \"https://dashboard.stripe.com/test/logs/req_h10nW2HdM9AdAB?t=1753144431\",\n
-        \   \"type\": \"invalid_request_error\"\n  }\n}\n"
+      string: "{\n  \"id\": \"cus_G3RryQUasJG0Jw\",\n  \"object\": \"customer\",\n
+        \ \"account_balance\": 0,\n  \"address\": null,\n  \"balance\": 0,\n  \"created\":
+        1571979820,\n  \"currency\": null,\n  \"default_source\": null,\n  \"delinquent\":
+        false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"customer@example.com\",\n
+        \ \"invoice_prefix\": \"F46EE136\",\n  \"invoice_settings\": {\n    \"custom_fields\":
+        null,\n    \"default_payment_method\": null,\n    \"footer\": null\n  },\n
+        \ \"livemode\": false,\n  \"metadata\": {\n  },\n  \"name\": null,\n  \"next_invoice_sequence\":
+        1,\n  \"phone\": null,\n  \"preferred_locales\": [\n\n  ],\n  \"shipping\":
+        null,\n  \"sources\": {\n    \"object\": \"list\",\n    \"data\": [\n\n    ],\n
+        \   \"has_more\": false,\n    \"total_count\": 0,\n    \"url\": \"/v1/customers/cus_G3RryQUasJG0Jw/sources\"\n
+        \ },\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"data\": [\n\n
+        \   ],\n    \"has_more\": false,\n    \"total_count\": 0,\n    \"url\": \"/v1/customers/cus_G3RryQUasJG0Jw/subscriptions\"\n
+        \ },\n  \"tax_exempt\": \"none\",\n  \"tax_ids\": {\n    \"object\": \"list\",\n
+        \   \"data\": [\n\n    ],\n    \"has_more\": false,\n    \"total_count\":
+        0,\n    \"url\": \"/v1/customers/cus_G3RryQUasJG0Jw/tax_ids\"\n  },\n  \"tax_info\":
+        null,\n  \"tax_info_verification\": null\n}\n"
     headers:
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Allow-Methods:
-      - GET, HEAD, PUT, PATCH, POST, DELETE
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - Request-Id, Stripe-Manage-Version, Stripe-Should-Retry, X-Stripe-External-Auth-Required,
-        X-Stripe-Privileged-Session-Required
-      Access-Control-Max-Age:
-      - '300'
-      Cache-Control:
-      - no-cache, no-store
       Connection:
       - keep-alive
       Content-Length:
-      - '333'
-      Content-Security-Policy:
-      - base-uri 'none'; default-src 'none'; form-action 'none'; frame-ancestors 'none';
-        img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'; worker-src
-        'none'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=JtukGbSXYZZGD0CiaBi88gPdhq7kq6Ru-k44GdxVZuzVRvMU3JmVNJtnT5JQrzhkHkc56fVIz98P08MA
+      - '1166'
       Content-Type:
       - application/json
       Date:
-      - Tue, 22 Jul 2025 00:33:51 GMT
-      Request-Id:
-      - req_h10nW2HdM9AdAB
+      - Sun, 14 Jun 2025 19:56:59 GMT
       Server:
       - nginx
       Strict-Transport-Security:
-      - max-age=63072000; includeSubDomains; preload
-      Stripe-Version:
-      - 2025-06-30.basil
-      Vary:
-      - Origin
-      X-Stripe-Priority-Routing-Enabled:
+      - max-age=31556926; includeSubDomains; preload
+      access-control-allow-credentials:
       - 'true'
-      X-Stripe-Routing-Context-Priority-Tier:
-      - api-testmode
-      X-Wc:
-      - ABGHIJ
+      access-control-allow-methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
+      access-control-max-age:
+      - '300'
+      cache-control:
+      - no-cache, no-store
+      request-id:
+      - req_s306l1Pv6yTyH5
+      stripe-version:
+      - '2018-09-06'
     status:
-      code: 404
-      message: Not Found
+      code: 200
+      message: OK
 version: 1
