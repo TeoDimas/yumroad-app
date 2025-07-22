@@ -43,10 +43,11 @@ def test_details_page(client, init_database):
     assert b'Buy for $5.00' in response.data
     assert book.name in str(response.data)
 
-def test_non_existant_book(client, init_database):
+def test_non_existent_book(client, init_database):
     book = create_book()
     response = client.get(url_for('product.details', product_id=book.id+1))
     assert response.status_code == 404
+    assert b'We couldn\'t find that page' in response.data
 
 def test_new_page_unauthorized(client, init_database):
     response = client.get(url_for('product.create'))
