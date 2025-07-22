@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, request, url_for, abort
 
-from yumroad.models import Product
-
+from yumroad.models import Product, db
+from yumroad.forms import ProductForm
 products = Blueprint('products', __name__)
 
 @products.route('/')
@@ -22,15 +22,9 @@ def create():
 @products.route('/<product_id>')
 def details(product_id):
     product = Product.query.get_or_404(product_id)
-    # Equivalent to:
-    # product = Product.query.get(product_id)
-    # if not product:
-    #    abort(404)
     return render_template('products/details.html', product=product)
 
-@products.errorhandler(404)
-def not_found(exception):
-    return render_template('products/404.html'), 404@products.route('/<product_id>/edit', methods=['GET', 'POST'])
+@products.route('/<product_id>/edit', methods=['GET', 'POST'])
 def edit(product_id):
     product = Product.query.get_or_404(product_id)
     form = ProductForm(obj=product)
@@ -41,3 +35,14 @@ def edit(product_id):
         db.session.commit()
         return redirect(url_for('.details', product_id=product.id))
     return render_template('products/edit.html', form=form, product=product)
+
+# @products.route('/new', methods=['GET', 'POST'])
+# def plain_old_form_handling():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         description = request.form['description']
+
+#         product = Product(name=name, description=description)
+#         db.session.add(product)
+#         return redirect(url_for('.details', product_id=product.id))
+#     return render_template('products/new_plain_form.html')
