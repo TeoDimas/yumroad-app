@@ -18,7 +18,8 @@ from yumroad.blueprints.rq_dashboard import rq_blueprint
 from yumroad.config import configurations
 from yumroad.extensions import (csrf, db, migrate, mail,
                                 login_manager, checkout,
-                                assets_env, rq2)
+                                assets_env, rq2, debug_toolbar,
+                                cache)
 
 # We need this line for alembic to discover the models.
 import yumroad.models  # noqa: F401
@@ -36,6 +37,8 @@ def create_app(environment_name='dev'):
     checkout.init_app(app)
     assets_env.init_app(app)
     rq2.init_app(app)
+    debug_toolbar.init_app(app)
+    cache.init_app(app)
 
     assets_loader = PythonAssetsLoader(assets)
     for name, bundle in assets_loader.load_bundles().items():

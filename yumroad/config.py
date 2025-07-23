@@ -30,6 +30,8 @@ class DevConfig(BaseConfig):
     # Don't do anything fancy with the assets pipeline (faster + easier to debug)
     ASSETS_DEBUG = True
     RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+    CACHE_TYPE = 'simple'
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
 class TestConfig(BaseConfig):
@@ -42,6 +44,9 @@ class TestConfig(BaseConfig):
     # Run jobs instantly, without needing to spin up a worker
     RQ_ASYNC = False
     RQ_CONNECTION_CLASS = 'fakeredis.FakeStrictRedis'
+    DEBUG_TB_ENABLED = False
+    CACHE_TYPE = 'null'
+    CACHE_NO_NULL_WARNING = True
 
 class ProdConfig(BaseConfig):
     DEBUG = False
@@ -53,9 +58,12 @@ class ProdConfig(BaseConfig):
     ASSETS_DEBUG = False
     RQ_REDIS_URL = REDIS_URL = os.getenv('REDIS_URL')
     RQ_ASYNC = (REDIS_URL is not None)
+    CACHE_TYPE = 'redis'
+    CACHE_KEY_PREFIX = 'yumroad-'
 
 configurations = {
     'dev': DevConfig,
     'test': TestConfig,
     'prod': ProdConfig,
 }
+

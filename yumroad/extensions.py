@@ -5,6 +5,8 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_assets import Environment
 from flask_rq2 import RQ
+from flask_debugtoolbar import DebugToolbarExtension
+from flask_caching import Cache
 
 from yumroad.payments import Checkout
 
@@ -27,8 +29,5 @@ mail = Mail()
 checkout = Checkout()
 assets_env = Environment()
 rq2 = RQ()
-
-# @rq2.job
-# def average(x, y):
-#    print("I am running")
-#    return (x + y)/2
+debug_toolbar = DebugToolbarExtension()
+cache = Cache()

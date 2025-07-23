@@ -9,6 +9,7 @@ wtforms[email]
 flask-migrate
 flask-login
 flask-mail
+flask-caching
 
 flask-assets
 cssmin
@@ -29,5 +30,5 @@ pytest-flask
 pytest-cov
 vcrpy
 fakeredis
-
+flask-debugtoolbar
 flake8
