@@ -13,7 +13,7 @@ def index():
     products = Product.query.all()
     return render_template('products/index.html', products=products)
 
-@product_bp.route('/product/new', methods=['GET', 'POST'])
+@product_bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def create():
     form = ProductForm()
@@ -31,7 +31,7 @@ def create():
     return render_template('products/new.html', form=form)
 
 
-@product_bp.route('/product/<product_id>')
+@product_bp.route('/<product_id>')
 def details(product_id):
     product = Product.query.get_or_404(product_id)
     stripe_publishable_key = checkout.publishable_key
@@ -43,7 +43,7 @@ def details(product_id):
                             stripe_publishable_key=stripe_publishable_key,
                             checkout_session_id=session_id)
 
-@product_bp.route('/product/<product_id>/post_checkout')
+@product_bp.route('/<product_id>/post_checkout')
 def post_checkout(product_id):
     product = Product.query.get_or_404(product_id)
     purchase_state = request.args.get('status')

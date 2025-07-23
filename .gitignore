@@ -5,9 +5,11 @@ venv*
 env
 *.tags*
 __pycache__
+*.webassets-cache*
 
 .cache
 _cache/*
+*pytest_cache*
 
 # local development
 database.db
