@@ -45,6 +45,7 @@ def app_context(app):
 @pytest.fixture
 def user_with_product():
     new_user = User.create("test@example.com", "pass")
+    db.session.add(new_user)
     store = Store(name="Test Store", user=new_user)
     product = Product(name='Test Product', description='a product', store=store)
     db.session.add(product)
