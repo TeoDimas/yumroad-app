@@ -2,13 +2,12 @@
 {% block title %} {{ product.name }} - {{ product.store.name }} {% endblock %}
 
 {% block content %}
+  {% if checkout_session_id %}
     <script src="https://js.stripe.com/v3/"></script>
     <script>
       var stripe = Stripe('{{ stripe_publishable_key }}');
 
       function purchase() {
-            console.log("Buy button clicked");
-
         stripe.redirectToCheckout({
           sessionId: '{{checkout_session_id}}'
         }).then(function (result) {
@@ -17,6 +16,7 @@
       }
 
     </script>
+  {% endif %}
 
   <div class="container">
     <div class="row mb-2">
