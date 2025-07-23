@@ -11,7 +11,9 @@ def index():
     return render_template('stores/index.html', stores=stores)
 
 @store_bp.route('/store/<store_id>')
-def show(store_id):
+@store_bp.route('/store/<store_id>/<int:page>')
+def show(store_id, page=1):
     store = Store.query.get_or_404(store_id)
-    products = store.products
+    per_page = 9
+    products = Product.query.filter_by(store=store).paginate(page, per_page)
     return render_template('stores/show.html', store=store, products=products)
