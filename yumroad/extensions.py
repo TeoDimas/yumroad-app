@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_assets import Environment
+from flask_rq2 import RQ
 
 from yumroad.payments import Checkout
 
@@ -19,9 +20,15 @@ naming_convention = {
 }
 
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
-migrate = Migrate()
 csrf = CSRFProtect()
+migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
 checkout = Checkout()
 assets_env = Environment()
+rq2 = RQ()
+
+# @rq2.job
+# def average(x, y):
+#    print("I am running")
+#    return (x + y)/2
